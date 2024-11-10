@@ -1,0 +1,5 @@
+services:
+  app:
+    command: gunicorn -b 0.0.0.0 -w 3 homnayangi.wsgi
+    environment:
+      DJANGO_SETTINGS_MODULE: homnayangi.settings_production
