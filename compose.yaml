@@ -5,6 +5,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      DJANGO_ALLOWED_HOSTS: $DJANGO_ALLOWED_HOSTS
     ports:
       - 8000:8000
     secrets:
