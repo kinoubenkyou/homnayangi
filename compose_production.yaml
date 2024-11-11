@@ -1,0 +1,16 @@
+services:
+  app:
+    command: gunicorn -b 0.0.0.0 -w 3 homnayangi.wsgi
+    environment:
+      DJANGO_ALLOWED_HOSTS: $DJANGO_ALLOWED_HOSTS
+      DJANGO_SETTINGS_MODULE: homnayangi.settings_production
+      POSTGRES_HOST: $POSTGRES_HOST
+    extends:
+      file: compose.yaml
+      service: app
+    secrets:
+      - django_secret_key
+
+secrets:
+  django_secret_key:
+    file: django_secret_key
