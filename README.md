@@ -49,5 +49,7 @@ LC_CTYPE=C sh -c "tr -dc [:alnum:] < /dev/urandom | head -c 50 > django_secret_k
 ```shell
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
 export DJANGO_ALLOWED_HOSTS=`curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4`
+export POSTGRES_HOST=<postgres_host>
+echo <postgres_password> > postgres_password
 docker compose -f compose_production.yaml up -d
 ```

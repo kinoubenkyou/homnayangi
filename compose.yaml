@@ -7,9 +7,6 @@ services:
     extends:
       file: compose_base.yaml
       service: app
-    secrets:
-      - django_secret_key
-      - postgres_password
 
   postgres:
     environment:
