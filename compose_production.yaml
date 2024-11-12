@@ -6,7 +6,7 @@ services:
       DJANGO_SETTINGS_MODULE: homnayangi.settings_production
       POSTGRES_HOST: $POSTGRES_HOST
     extends:
-      file: compose.yaml
+      file: compose_base.yaml
       service: app
     secrets:
       - django_secret_key
