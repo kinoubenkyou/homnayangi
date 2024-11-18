@@ -35,3 +35,17 @@ docker compose run --no-deps --rm app sh -c "pip install <package> && pip freeze
 docker compose build
 docker compose down -v
 ```
+
+## production
+
+### build
+
+```shell
+docker build -f production.Dockerfile -t public.ecr.aws/d1p6t0r8/homnayangi-app .
+```
+
+### push
+
+```shell
+docker push public.ecr.aws/d1p6t0r8/homnayangi-app:latest
+```
