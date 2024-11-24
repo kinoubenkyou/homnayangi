@@ -1,7 +1,7 @@
 from os import environ
 
-from homnayangi.settings_base import *
-
+from homnayangi.settings_base import *  # noqa: F403
+from homnayangi.settings_base import DATABASES
 
 ALLOWED_HOSTS = environ["DJANGO_ALLOWED_HOSTS"].split(",")
 

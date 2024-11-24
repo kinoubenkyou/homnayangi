@@ -36,6 +36,16 @@ docker compose build
 docker compose down -v
 ```
 
+## lint and format
+
+Ruff formatter can fix some lint issues so linter should be run once more after formatter 
+
+```shell
+docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
+docker compose run --no-deps --rm app sh -c "ruff format"
+docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
+```
+
 ## production
 
 ### build
