@@ -46,6 +46,12 @@ docker compose run --no-deps --rm app sh -c "ruff format"
 docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
 ```
 
+## test
+
+```shell
+docker compose run --rm app sh -c "python manage.py test"
+```
+
 ## production
 
 ### build
