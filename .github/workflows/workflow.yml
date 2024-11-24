@@ -22,6 +22,7 @@ jobs:
             image_id=$(docker image ls -q -f=reference=${{ env.image_url }})
             echo "image_id=$image_id" >> "$GITHUB_ENV"
           fi
+      - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with:
           tags: ${{ env.image_url }}
