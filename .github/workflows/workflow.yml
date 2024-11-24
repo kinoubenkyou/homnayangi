@@ -1,5 +1,7 @@
 on:
   - push
+env:
+  image_url: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
 jobs:
   build:
     permissions:
@@ -9,12 +11,8 @@ jobs:
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - id: set-image-url
-        run: |
-          image_url=ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
-          echo "image_url=$image_url" >> "$GITHUB_ENV"
       - id: set-image-id
         run: |
           if docker pull ${{ env.image_url }}
@@ -41,3 +39,14 @@ jobs:
           tags: ${{ env.image_url }}
           push: true
           cache-to: type=registry,ref=${{ env.image_url }}:cache
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: ${{ env.image_url }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: ruff check --diff
