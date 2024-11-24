@@ -26,6 +26,7 @@ jobs:
         with:
           tags: ${{ env.image_name }}
           load: true
+          cache-to: type=inline
       - name: Check if image id changed
         run: |
           image_id=$(docker image ls -q -f=reference=${{ env.image_name }})
@@ -39,7 +40,6 @@ jobs:
         with:
           tags: ${{ env.image_name }}
           push: true
-          cache-to: type=inline
   format:
     runs-on: ubuntu-latest
     needs: build
