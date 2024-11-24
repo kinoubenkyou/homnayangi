@@ -36,6 +36,12 @@ docker compose build
 docker compose down -v
 ```
 
+## lint and format
+
+```shell
+docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes && ruff format"
+```
+
 ## production
 
 ### build
