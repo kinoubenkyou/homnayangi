@@ -39,7 +39,8 @@ docker compose down -v
 ## lint and format
 
 ```shell
-docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes && ruff format"
+docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
+docker compose run --no-deps --rm app sh -c "ruff format"
 ```
 
 ## production
