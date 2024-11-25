@@ -51,7 +51,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - run: ruff format --diff --unsafe-fixes
+      - run: ruff format --diff
   lint:
     runs-on: ubuntu-latest
     needs: build
@@ -62,7 +62,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - run: ruff check --diff
+      - run: ruff check --diff --unsafe-fixes
   test:
     runs-on: ubuntu-latest
     needs: build

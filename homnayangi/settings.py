@@ -12,5 +12,5 @@ with Path("postgres_password").open() as file:
 
 DEBUG = True
 
-with Path("django_secret_key").open() as f:
-    SECRET_KEY = f.read().strip()
+with Path("django_secret_key").open() as file:
+    SECRET_KEY = file.read().strip()
