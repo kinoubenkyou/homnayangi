@@ -83,7 +83,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python generate_secret_key.py > django_secret_key
-      - run: touch postgres_password
       - run: chmod 600 django_secret_key
       - run: python manage.py migrate
       - run: python manage.py test --failfast
