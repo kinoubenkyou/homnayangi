@@ -71,9 +71,18 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready -U postgres -d postgres
+          --health-start-interval 1s
+          --health-start-period 5s
     steps:
       - uses: actions/checkout@v4
       - run: python generate_secret_key.py > django_secret_key
-      - run: LC_CTYPE=C sh -c "tr -dc [:alnum:] < /dev/urandom | head -c 20 > postgres_password"
+      - run: echo ${{ secrets.POSTGRES_PASSWORD }} > postgres_password
       - run: python manage.py migrate
       - run: python manage.py test --failfast
