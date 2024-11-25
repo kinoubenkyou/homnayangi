@@ -77,7 +77,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         options: >-
-          --health-cmd pg_isready -U postgres -d postgres
+          --health-cmd pg_isready
           --health-start-interval 1s
           --health-start-period 5s
     steps:
