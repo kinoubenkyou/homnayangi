@@ -25,7 +25,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           tags: ${{ env.image_name }}
-          output: type=image
+          load: true
           cache-from: type=registry,ref=${{ env.image_name }}
       - name: Check if image id changed
         run: |
@@ -39,8 +39,8 @@ jobs:
         if: ${{ env.is_image_rebuilt == 'true' }}
         with:
           tags: ${{ env.image_name }}
-          output: type=registry
-          cache-to: type=inline
+          push: true
+          cache-to: type=registry,ref=${{ env.image_name }}
   lint:
     runs-on: ubuntu-latest
     needs: build
