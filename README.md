@@ -7,6 +7,7 @@
 ```shell
 docker compose run --no-deps --rm app sh -c "python generate_secret_key.py > django_secret_key"
 LC_CTYPE=C sh -c "tr -dc [:alnum:] < /dev/urandom | head -c 20 > postgres_password"
+chmod 600 django_secret_key postgres_password
 docker compose run --rm app sh -c "python manage.py migrate"
 ```
 
@@ -38,12 +39,15 @@ docker compose down -v
 
 ## lint and format
 
-Ruff formatter can fix some lint issues so linter should be run once more after formatter 
-
 ```shell
 docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
-docker compose run --no-deps --rm app sh -c "ruff format"
-docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
+docker compose run --no-deps --rm app sh -c "ruff format --preview"
+```
+
+## test
+
+```shell
+docker compose run --rm app sh -c "python manage.py test"
 ```
 
 ## production

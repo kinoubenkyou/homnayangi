@@ -16,7 +16,7 @@ services:
     healthcheck:
       start_interval: 1s
       start_period: 5s
-      test: pg_isready -U postgres -d postgres
+      test: pg_isready
     image: postgres
     ports:
       - 5432:5432
