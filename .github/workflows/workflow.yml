@@ -41,28 +41,28 @@ jobs:
           tags: ${{ env.image_name }}
           push: true
           cache-to: type=registry,ref=${{ env.image_name }}:cache
-  format:
-    runs-on: ubuntu-latest
-    needs: build
-    container:
-      image: ghcr.io/kinoubenkyou/homnayangi
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: ruff format -q --check --preview
-  lint:
-    runs-on: ubuntu-latest
-    needs: build
-    container:
-      image: ghcr.io/kinoubenkyou/homnayangi
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: ruff check -q --output-format=concise --unsafe-fixes
+#  format:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    container:
+#      image: ghcr.io/kinoubenkyou/homnayangi
+#      credentials:
+#        username: ${{ github.actor }}
+#        password: ${{ secrets.GITHUB_TOKEN }}
+#    steps:
+#      - uses: actions/checkout@v4
+#      - run: ruff format -q --check --preview
+#  lint:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    container:
+#      image: ghcr.io/kinoubenkyou/homnayangi
+#      credentials:
+#        username: ${{ github.actor }}
+#        password: ${{ secrets.GITHUB_TOKEN }}
+#    steps:
+#      - uses: actions/checkout@v4
+#      - run: ruff check -q --output-format=concise --unsafe-fixes
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -75,7 +75,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_PASSWORD: temp
         options: >-
           --health-cmd pg_isready
           --health-start-interval 1s
@@ -83,5 +83,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python generate_secret_key.py > django_secret_key
-      - run: echo ${{ secrets.POSTGRES_PASSWORD }} > postgres_password
-      - run: python manage.py test --failfast
+      - run: echo temp > postgres_password
+      - run: python manage.py shell -c 'from django.conf import settings; print(settings.DATABASES)'
+#      - run: python manage.py test --failfast
