@@ -84,5 +84,4 @@ jobs:
       - uses: actions/checkout@v4
       - run: python generate_secret_key.py > django_secret_key
       - run: echo ${{ secrets.POSTGRES_PASSWORD }} > postgres_password
-      - run: sleep 10
       - run: python manage.py test --failfast
