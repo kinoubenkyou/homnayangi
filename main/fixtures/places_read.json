@@ -1,0 +1,11 @@
+[
+  {
+    "model": "main.place",
+    "pk": 1,
+    "fields": {
+      "address": "address1",
+      "name": "name1",
+      "price_group": 0
+    }
+  }
+]

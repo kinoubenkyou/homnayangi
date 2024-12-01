@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from main.views.places import PlacesReadView
 from main.views.user import UserCreateView, UserReadView, UserSignInView
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     path("user/", UserReadView.as_view(), name="user-read"),
     path("user/create/", UserCreateView.as_view(), name="user-create"),
     path("user/sign_in/", UserSignInView.as_view(), name="user-sign-in"),
+    path("places/<int:pk>/", PlacesReadView.as_view(), name="places-read"),
 ]
