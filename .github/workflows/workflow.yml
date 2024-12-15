@@ -1,8 +1,11 @@
 on:
   - push
+
 env:
   image_name: ghcr.io/kinoubenkyou/homnayangi
+
 jobs:
+
   build:
     permissions:
       packages: write
@@ -41,6 +44,7 @@ jobs:
           tags: ${{ env.image_name }}
           push: true
           cache-to: type=registry,ref=${{ env.image_name }}:cache
+
   format:
     runs-on: ubuntu-latest
     needs: build
@@ -52,6 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ruff format -q --check --preview
+
   lint:
     runs-on: ubuntu-latest
     needs: build
@@ -63,6 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ruff check -q --output-format=concise --unsafe-fixes
+
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -82,6 +88,11 @@ jobs:
           --health-start-period 5s
     steps:
       - uses: actions/checkout@v4
-      - run: python generate_secret_key.py > django_secret_key
-      - run: echo -n ${{ secrets.POSTGRES_PASSWORD }} > postgres_password
       - run: python manage.py test --failfast
+        env:
+          DJANGO_ALLOWED_HOSTS: ''
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          POSTGRES_DB: postgres
+          POSTGRES_HOST: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: postgres

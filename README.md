@@ -2,52 +2,51 @@
 
 ## development
 
-### configurate
+### dependencies
+
+- python 3.13.0
+- postgres
+- chromium
+
+### configure
+
+1. run
 
 ```shell
-docker compose run --no-deps --rm app sh -c "python generate_secret_key.py > django_secret_key"
-LC_CTYPE=C sh -c "tr -dc [:alnum:] < /dev/urandom | head -c 20 > postgres_password"
-chmod 600 django_secret_key postgres_password
-docker compose run --rm app sh -c "python manage.py migrate"
+cp .env-sample .env
+```
+
+2. fill `.env`
+3. run
+
+```shell
+pip install -r requirements.txt
+python manage.py migrate
 ```
 
 ### start
 
 ```shell
-docker compose up -d
-```
-
-### stop
-
-```shell
-docker compose stop
-```
-
-### shell
-
-```shell
-docker compose run --no-deps --rm app sh
+python manage.py runserver
 ```
 
 ### add package
 
 ```shell
-docker compose run --no-deps --rm app sh -c "pip install <package> && pip freeze > requirements.txt"
-docker compose build
-docker compose down -v
+pip install <package> && pip freeze > requirements.txt
 ```
 
-## lint and format
+### lint and format
 
 ```shell
-docker compose run --no-deps --rm app sh -c "ruff check --fix --unsafe-fixes"
-docker compose run --no-deps --rm app sh -c "ruff format --preview"
+ruff check --fix --unsafe-fixes
+ruff format --preview
 ```
 
-## test
+### test
 
 ```shell
-docker compose run --rm app sh -c "python manage.py test"
+python manage.py test
 ```
 
 ## production
