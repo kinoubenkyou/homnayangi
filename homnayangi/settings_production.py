@@ -1,12 +1,6 @@
-from os import environ
-
 from homnayangi.settings_base import *  # noqa: F403
-from homnayangi.settings_base import DATABASES
 
 ALLOWED_HOSTS = environ["DJANGO_ALLOWED_HOSTS"].split(",")
-
-DATABASES["default"]["HOST"] = environ["POSTGRES_HOST"]
-DATABASES["default"]["PASSWORD"] = environ["POSTGRES_PASSWORD"]
 
 DEBUG = False
 
@@ -23,5 +17,3 @@ LOGGING = {
         "level": "ERROR",
     },
 }
-
-SECRET_KEY = environ["DJANGO_SECRET_KEY"]
