@@ -78,6 +78,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
       env:
+        DJANGO_ALLOWED_HOST: ''
         DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         POSTGRES_DB: postgres
         POSTGRES_HOST: postgres
