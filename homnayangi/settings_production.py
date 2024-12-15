@@ -1,8 +1,4 @@
-from os import environ
-
 from homnayangi.settings_base import *  # noqa: F403
-
-ALLOWED_HOSTS = environ["DJANGO_ALLOWED_HOSTS"].split(",")
 
 DEBUG = False
 
