@@ -77,13 +77,6 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-      env:
-        DJANGO_ALLOWED_HOSTS: "1.1.1.1"
-        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-        POSTGRES_DB: postgres
-        POSTGRES_HOST: postgres
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        POSTGRES_USER: postgres
     services:
       postgres:
         image: postgres
@@ -96,3 +89,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python manage.py test --failfast
+        env:
+          DJANGO_ALLOWED_HOSTS: ''
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          POSTGRES_DB: postgres
+          POSTGRES_HOST: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: postgres
